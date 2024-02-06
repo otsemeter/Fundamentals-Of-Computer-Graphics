@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 17)
 project(main)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+set(EXECUTABLE_OUTPUT_PATH  ${CMAKE_BINARY_DIR})
 # execute subdirectory cmakelists
 add_subdirectory(${PROJECT_SOURCE_DIR}/deps)
 # src
