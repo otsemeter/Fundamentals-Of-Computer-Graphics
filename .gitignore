@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# clion ide
+.idea/
+
+# cmake 
+cmake-build-debug/
+# macos folder
+.DS_Store
+
