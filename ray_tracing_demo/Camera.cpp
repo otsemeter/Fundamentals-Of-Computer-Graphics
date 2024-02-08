@@ -15,7 +15,7 @@ Camera::Camera() : origin(Vector3(0, 0, 0)),
 Ray Camera::gen_ray(double _u, double _v) {
     Vector3 random_pos = this->aperture/2 * random_in_unit_disk();
     Vector3 offset = u*random_pos.x() + v * random_pos.y();
-    double tmp_time = this->duration_start + drand48() * (this->duration_end-this->duration_start);
+    double tmp_time = this->duration_start + ((double)rand() / RAND_MAX) * (this->duration_end-this->duration_start);
     Ray tmp_r(origin + offset, low_left_corner + _u * horizontal_vec + _v * vertical_vec - origin - offset,tmp_time);
     return {tmp_r};
 }

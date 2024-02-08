@@ -9,7 +9,7 @@ Vector3 random_in_unit_sphere()
     Vector3 p;
     do
     {
-        p = 2.0 * Vector3(drand48(), drand48(), drand48()) - Vector3(1, 1, 1);
+        p = 2.0 * Vector3(((double)rand() / RAND_MAX), ((double)rand() / RAND_MAX), ((double)rand() / RAND_MAX)) - Vector3(1, 1, 1);
     } while (p.length() * p.length() >= 1.0);
     return p;
 }
@@ -19,7 +19,7 @@ Vector3 random_in_unit_disk()
     Vector3 p;
     do
     {
-        p = 2.0 * Vector3(drand48(), drand48(), 0) - Vector3(1, 1, 0);
+        p = 2.0 * Vector3(((double)rand() / RAND_MAX), ((double)rand() / RAND_MAX), 0) - Vector3(1, 1, 0);
     } while (p.length() >= 1.0);
     return p;
 }
