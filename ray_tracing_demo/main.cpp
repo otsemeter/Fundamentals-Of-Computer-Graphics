@@ -16,7 +16,6 @@
 #include <sstream>
 #include <thread>
 
-void render0();
 
 void render();
 
@@ -41,7 +40,7 @@ PNGMaster tmp_pic(height, width);
 int main() {
 
   std::cout << "Rendering : " << width << " - " << height << std::endl;
-    render();
+  render();
   return 0;
 }
 
@@ -50,12 +49,12 @@ void random_scene() {
                                  new Lambertian(Vector3(0.5, 0.5, 0.5))));
   for (int a = -11; a < 11; ++a) {
     for (int b = -11; b < 11; ++b) {
-        Vector3 tmp_center(a + 0.9 * drand48(), 0.2, b + 0.9 * drand48());
+        Vector3 tmp_center(a + 0.9 * ((double)rand() / (RAND_MAX)), 0.2, b + 0.9 * ((double)rand() / (RAND_MAX)));
         auto *tmp_sphere =
                 new Sphere(tmp_center, 0.2 ,
-                           new Lambertian(Vector3(drand48() * drand48(),
-                                                  drand48() * drand48(),
-                                                  drand48() * drand48())));
+                           new Lambertian(Vector3(((double)rand() / (RAND_MAX)) * ((double)rand() / (RAND_MAX)),
+                                                  ((double)rand() / (RAND_MAX)) * ((double)rand() / (RAND_MAX)),
+                                                  ((double)rand() / (RAND_MAX)) * ((double)rand() / (RAND_MAX)))));
         tmp_scene.addObject(tmp_sphere);
     }
   }
@@ -110,8 +109,8 @@ void render() {
 void cal_color(const int &_i, const int &_j) {
   Vector3 tmp_color;
   for (int k = 0; k < ray_num; ++k) {
-    double u = float(_j + drand48()) / float(width);
-    double v = float(_i + drand48()) / float(height);
+    double u = float(_j + ((double)rand() / (RAND_MAX))) / float(width);
+    double v = float(_i + ((double)rand() / (RAND_MAX))) / float(height);
     Ray tmp_ray = tmp_camera.gen_ray(u, v);
     tmp_color += color(tmp_ray, tmp_scene, 0);
     ;
