@@ -17,9 +17,6 @@
 #include <thread>
 
 
-
-void render0();
-
 void render();
 
 Vector3 color(const Ray &, const Scene &, int);
@@ -37,31 +34,30 @@ Vector3 look_from(13, 2, 3);
 Vector3 look_at(0, 0, 0);
 float focus_dis = (look_from - look_at).length();
 Camera tmp_camera(look_from, look_at, Vector3(0, 1, 0), 30,
-                  float(width) / float(height), 0.05, focus_dis, 0, 0);
+                  float(width) / float(height), 0.1, focus_dis, 0, 0);
 PNGMaster tmp_pic(height, width);
 
 int main() {
 
   std::cout << "Rendering : " << width << " - " << height << std::endl;
-    render();
+  render();
   return 0;
 }
 
 void random_scene() {
   tmp_scene.addObject(new Sphere(Vector3(0, -1000, 0), 1000,
                                  new Lambertian(Vector3(0.5, 0.5, 0.5))));
-  tmp_scene.addObject(new Sphere(Vector3(0, 0, 0), 1, new Lambertian(Vector3(0.5, 0.7, 0.3))));
-//  for (int a = -11; a < 11; ++a) {
-//    for (int b = -11; b < 11; ++b) {
-//        Vector3 tmp_center(a + 0.9 * ((double)rand() / RAND_MAX), 0, b + 0.9 * ((double)rand() / RAND_MAX));
-//        auto *tmp_sphere =
-//                new Sphere(tmp_center,  0.3 ,
-//                           new Lambertian(Vector3(((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX),
-//                                                  ((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX),
-//                                                  ((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX))));
-//        tmp_scene.addObject(tmp_sphere);
-//    }
-//  }
+  for (int a = -11; a < 11; ++a) {
+    for (int b = -11; b < 11; ++b) {
+        Vector3 tmp_center(a + 0.9 * ((double)rand() / (RAND_MAX)), 0.2, b + 0.9 * ((double)rand() / (RAND_MAX)));
+        auto *tmp_sphere =
+                new Sphere(tmp_center, 0.2 ,
+                           new Lambertian(Vector3(((double)rand() / (RAND_MAX)) * ((double)rand() / (RAND_MAX)),
+                                                  ((double)rand() / (RAND_MAX)) * ((double)rand() / (RAND_MAX)),
+                                                  ((double)rand() / (RAND_MAX)) * ((double)rand() / (RAND_MAX)))));
+        tmp_scene.addObject(tmp_sphere);
+    }
+  }
 }
 
 void render() {
@@ -98,7 +94,7 @@ void render() {
   char tmp_name[100];
 
   strcpy(tmp_name, tmp_str.c_str());
-  strcat(tmp_name, "test1.png");
+  strcat(tmp_name, "test.png");
 
   end = std::chrono::system_clock::now();
   duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
@@ -113,8 +109,8 @@ void render() {
 void cal_color(const int &_i, const int &_j) {
   Vector3 tmp_color;
   for (int k = 0; k < ray_num; ++k) {
-    double u = float(_j + ((double)rand() / RAND_MAX)) / float(width);
-    double v = float(_i + ((double)rand() / RAND_MAX)) / float(height);
+    double u = float(_j + ((double)rand() / (RAND_MAX))) / float(width);
+    double v = float(_i + ((double)rand() / (RAND_MAX))) / float(height);
     Ray tmp_ray = tmp_camera.gen_ray(u, v);
     tmp_color += color(tmp_ray, tmp_scene, 0);
     ;
