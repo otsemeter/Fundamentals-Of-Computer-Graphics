@@ -30,7 +30,7 @@ void random_scene();
 
 unsigned int height = 128;
 unsigned int width = 128;
-int ray_num = 1000;
+int ray_num = 10;
 Scene tmp_scene;
 
 Vector3 look_from(13, 2, 3);
@@ -50,17 +50,18 @@ int main() {
 void random_scene() {
   tmp_scene.addObject(new Sphere(Vector3(0, -1000, 0), 1000,
                                  new Lambertian(Vector3(0.5, 0.5, 0.5))));
-  for (int a = -11; a < 11; ++a) {
-    for (int b = -11; b < 11; ++b) {
-        Vector3 tmp_center(a + 0.9 * ((double)rand() / RAND_MAX), 0, b + 0.9 * ((double)rand() / RAND_MAX));
-        auto *tmp_sphere =
-                new Sphere(tmp_center,  0.3 ,
-                           new Lambertian(Vector3(((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX),
-                                                  ((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX),
-                                                  ((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX))));
-        tmp_scene.addObject(tmp_sphere);
-    }
-  }
+  tmp_scene.addObject(new Sphere(Vector3(0, 0, 0), 1, new Lambertian(Vector3(0.5, 0.7, 0.3))));
+//  for (int a = -11; a < 11; ++a) {
+//    for (int b = -11; b < 11; ++b) {
+//        Vector3 tmp_center(a + 0.9 * ((double)rand() / RAND_MAX), 0, b + 0.9 * ((double)rand() / RAND_MAX));
+//        auto *tmp_sphere =
+//                new Sphere(tmp_center,  0.3 ,
+//                           new Lambertian(Vector3(((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX),
+//                                                  ((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX),
+//                                                  ((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX))));
+//        tmp_scene.addObject(tmp_sphere);
+//    }
+//  }
 }
 
 void render() {
@@ -97,7 +98,7 @@ void render() {
   char tmp_name[100];
 
   strcpy(tmp_name, tmp_str.c_str());
-  strcat(tmp_name, "test.png");
+  strcat(tmp_name, "test1.png");
 
   end = std::chrono::system_clock::now();
   duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
