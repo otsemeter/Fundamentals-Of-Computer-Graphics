@@ -30,14 +30,14 @@ void random_scene();
 
 unsigned int height = 128;
 unsigned int width = 128;
-int ray_num = 10;
+int ray_num = 1000;
 Scene tmp_scene;
 
 Vector3 look_from(13, 2, 3);
 Vector3 look_at(0, 0, 0);
 float focus_dis = (look_from - look_at).length();
 Camera tmp_camera(look_from, look_at, Vector3(0, 1, 0), 30,
-                  float(width) / float(height), 0.1, focus_dis, 0, 0);
+                  float(width) / float(height), 0.05, focus_dis, 0, 0);
 PNGMaster tmp_pic(height, width);
 
 int main() {
@@ -52,9 +52,9 @@ void random_scene() {
                                  new Lambertian(Vector3(0.5, 0.5, 0.5))));
   for (int a = -11; a < 11; ++a) {
     for (int b = -11; b < 11; ++b) {
-        Vector3 tmp_center(a + 0.9 * ((double)rand() / RAND_MAX), 0.2, b + 0.9 * ((double)rand() / RAND_MAX));
+        Vector3 tmp_center(a + 0.9 * ((double)rand() / RAND_MAX), 0, b + 0.9 * ((double)rand() / RAND_MAX));
         auto *tmp_sphere =
-                new Sphere(tmp_center, 0.2 ,
+                new Sphere(tmp_center,  0.3 ,
                            new Lambertian(Vector3(((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX),
                                                   ((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX),
                                                   ((double)rand() / RAND_MAX) * ((double)rand() / RAND_MAX))));
